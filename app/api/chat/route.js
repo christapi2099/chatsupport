@@ -48,12 +48,35 @@ export async function POST(req){
         body: JSON.stringify({
           "model": "meta-llama/llama-3.1-8b-instruct:free",
           "messages": [
-            {"role": "user", "content": "Recommend me a simple salami sandwitch recipe."},
+            {"role": "user", "content": systemPrompt},
           ]
         })
       });
-    
+
+      const stream = new ReadableStream({
+         async start(controller){
+            const encoder = new TextEncoder()
+            try{
+               for await (const chunk of completion){
+                  const content = chunk.choices[0]?.delta?.content
+                  if(content){
+                     const text = encoder.encode(content)
+                     controller.enqueue(text)
+                  }
+               }
+            }catch(errr){
+               controller.error(err)
+            }finally{
+               controller.close()
+            }
+         },
+
+         })
+    return new NextResponse(stream)
+}
+
+/*
     const data = await response.json();
     console.log("Assistant:", data.choices[0].message.content);
     return NextResponse.json({message: 'Hello from server!'})
-}
+*/

@@ -38,42 +38,58 @@ const systemPrompt = `You are an AI assistant for Intelliship, a platform that p
    - For complex technical issues, always offer to escalate to a human support technician
 
 Remember to tailor your responses to the user's level of familiarity with Intelliship and logistics concepts. Your goal is to provide efficient, accurate support that enhances the user\'s experience with Intelliship.`
-export async function POST(req){
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer " + process.env.OPENROUTER_API_KEY,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          "model": "meta-llama/llama-3.1-8b-instruct:free",
-          "messages": [
-            {"role": "user", "content": systemPrompt},
-          ]
-        })
-      });
-
-      const stream = new ReadableStream({
-         async start(controller){
-            const encoder = new TextEncoder()
-            try{
-               for await (const chunk of completion){
-                  const content = chunk.choices[0]?.delta?.content
-                  if(content){
-                     const text = encoder.encode(content)
-                     controller.enqueue(text)
-                  }
-               }
-            }catch(errr){
-               controller.error(err)
-            }finally{
-               controller.close()
-            }
-         },
-
-         })
-    return new NextResponse(stream)
-}
+export async function POST(req) {
+   try {
+     const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+       method: "POST",
+       headers: {
+         "Authorization": "Bearer " + process.env.OPENROUTER_API_KEY,
+         "Content-Type": "application/json",
+         "HTTP-Referer": "https://your-site.com", // Required by OpenRouter
+         "X-Title": "Your App Name" // Required by OpenRouter
+       },
+       body: JSON.stringify({
+         "model": "meta-llama/llama-3.1-8b-instruct:free",
+         "messages": [
+           {"role": "user", "content": systemPrompt}, // Replace with actual prompt
+         ],
+         "stream": true // Enable streaming
+       })
+     });
+ 
+     if (!response.ok) {
+       const errorData = await response.json();
+       console.error("API Error:", errorData);
+       return NextResponse.json(errorData, { status: response.status });
+     }
+ 
+     // Set up streaming response
+     const stream = new ReadableStream({
+       async start(controller) {
+         const reader = response.body.getReader();
+         const decoder = new TextDecoder();
+         while (true) {
+           const { done, value } = await reader.read();
+           if (done) break;
+           const chunk = decoder.decode(value, { stream: true });
+           controller.enqueue(chunk);
+         }
+         controller.close();
+       }
+     });
+ 
+     return new NextResponse(stream, {
+       headers: {
+         'Content-Type': 'text/event-stream',
+         'Cache-Control': 'no-cache',
+         'Connection': 'keep-alive',
+       },
+     });
+   } catch (error) {
+     console.error("Error:", error);
+     return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+   }
+ }
 
 /*
     const data = await response.json();

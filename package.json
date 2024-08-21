@@ -11,7 +11,11 @@
   "dependencies": {
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^5.16.7",
     "@mui/material": "^5.16.7",
+    "dotenv": "^16.4.5",
+    "expo-constants": "^16.0.2",
+    "firebase": "^10.13.0",
     "next": "14.2.5",
     "openai": "^4.55.0",
     "react": "^18",

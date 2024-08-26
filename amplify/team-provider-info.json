@@ -1,0 +1,28 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-chatsupport-dev-23b67-authRole",
+      "UnauthRoleArn": "arn:aws:iam::905418401900:role/amplify-chatsupport-dev-23b67-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::905418401900:role/amplify-chatsupport-dev-23b67-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-chatsupport-dev-23b67-deployment",
+      "UnauthRoleName": "amplify-chatsupport-dev-23b67-unauthRole",
+      "StackName": "amplify-chatsupport-dev-23b67",
+      "StackId": "arn:aws:cloudformation:us-west-1:905418401900:stack/amplify-chatsupport-dev-23b67/8f6be220-638f-11ef-aa69-0627d283266b",
+      "AmplifyAppId": "d1lh6g1br6sgt"
+    }
+  },
+  "env": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-chatsupport-env-f68a0-authRole",
+      "UnauthRoleArn": "arn:aws:iam::905418401900:role/amplify-chatsupport-env-f68a0-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::905418401900:role/amplify-chatsupport-env-f68a0-authRole",
+      "Region": "us-west-1",
+      "DeploymentBucketName": "amplify-chatsupport-env-f68a0-deployment",
+      "UnauthRoleName": "amplify-chatsupport-env-f68a0-unauthRole",
+      "StackName": "amplify-chatsupport-env-f68a0",
+      "StackId": "arn:aws:cloudformation:us-west-1:905418401900:stack/amplify-chatsupport-env-f68a0/0ae05b80-6394-11ef-9d5d-025a045d4887",
+      "AmplifyAppId": "d1lh6g1br6sgt"
+    }
+  }
+}

@@ -1,7 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Box, Button, TextField, Typography, Link } from '@mui/material';
+import { Box, Button, TextField, Typography, Link, IconButton } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack'; // Import the ArrowBack icon
 import { auth, provider, firestore } from '../../firebaseConfig';
 import { 
   signInWithEmailAndPassword, 
@@ -59,6 +60,10 @@ export default function LoginPage() {
     }
   };
 
+  const handleBackClick = () => {
+    router.push('/landingpage'); // Navigate back to the landing page
+  };
+
   return (
     <Box
       sx={{
@@ -67,8 +72,15 @@ export default function LoginPage() {
         justifyContent: 'center',
         alignItems: 'center',
         minHeight: '100vh',
+        position: 'relative',
       }}
     >
+      <IconButton 
+        onClick={handleBackClick} 
+        sx={{ position: 'absolute', top: 16, left: 16, color: '#1976d2' }}
+      >
+        <ArrowBackIcon />
+      </IconButton>
       <Box
         sx={{
           width: '100%',

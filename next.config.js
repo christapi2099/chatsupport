@@ -4,7 +4,7 @@ module.exports = {
       return [
         {
           source: '/',
-          destination: '/login',
+          destination: '/landingpage',
           permanent: true, // This makes the redirect a 308 Permanent Redirect
         },
       ]

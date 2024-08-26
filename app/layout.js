@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
   useEffect(() => {
     // Check if the current route is the root, and redirect to the login page
     if (router.pathname === '/') {
-      router.push('/login'); // Redirect to the login page
+      router.push('/landingpage'); // Redirect to the login page
     }
   }, [router]);
 

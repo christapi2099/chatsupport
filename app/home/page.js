@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Box, Stack, TextField, Button, List, ListItem, ListItemIcon, ListItemText, Divider, Typography, IconButton } from '@mui/material';
 import ChatIcon from '@mui/icons-material/Chat';
 import AddIcon from '@mui/icons-material/Add';
@@ -12,6 +12,7 @@ import { getFirestore, doc, setDoc, getDoc, updateDoc } from 'firebase/firestore
 import { firebaseConfig } from '../../firebaseConfig';
 
 export default function Home() {
+  console.log("API Key:", process.env.NEXT_PUBLIC_OPENROUTER_API_KEY);
   const [conversations, setConversations] = useState([]);
   const [currentConversationId, setCurrentConversationId] = useState(null);
   const [message, setMessage] = useState('');
@@ -19,42 +20,7 @@ export default function Home() {
   const router = useRouter();
   const db = getFirestore();
 
-  useEffect(() => {
-    if (!getApps().length) {
-      initializeApp(firebaseConfig);
-    }
-
-    const auth = getAuth();
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        await fetchConversations(user.uid);
-        setLoading(false);
-      } else {
-        router.push('/login');
-      }
-    });
-
-    return () => unsubscribe();
-  }, [router]);
-
-  const fetchConversations = async (userId) => {
-    const userDocRef = doc(db, 'users', userId);
-    const userDoc = await getDoc(userDocRef);
-    if (userDoc.exists()) {
-      const userData = userDoc.data();
-      if (userData.conversations && userData.conversations.length > 0) {
-        setConversations(userData.conversations);
-        createNewConversation(userId, userData.conversations); // Automatically create and select a new conversation
-      } else {
-        createFirstConversation(userId);
-      }
-    } else {
-      await setDoc(userDocRef, { conversations: [] });
-      createFirstConversation(userId);
-    }
-  };
-
-  const createFirstConversation = async (userId) => {
+  const createFirstConversation = useCallback(async (userId) => {
     const newConversation = {
       id: 1,
       title: `Conversation 1`,
@@ -72,9 +38,9 @@ export default function Home() {
     await updateDoc(userDocRef, {
       conversations: updatedConversations
     });
-  };
+  }, [db]);
 
-  const createNewConversation = async (userId, existingConversations) => {
+  const createNewConversation = useCallback(async (userId, existingConversations) => {
     const newId = existingConversations.length + 1;
     const newConversation = {
       id: newId,
@@ -93,7 +59,42 @@ export default function Home() {
     await updateDoc(userDocRef, {
       conversations: updatedConversations
     });
-  };
+  }, [db]);
+
+  const fetchConversations = useCallback(async (userId) => {
+    const userDocRef = doc(db, 'users', userId);
+    const userDoc = await getDoc(userDocRef);
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
+      if (userData.conversations && userData.conversations.length > 0) {
+        setConversations(userData.conversations);
+        createNewConversation(userId, userData.conversations);
+      } else {
+        createFirstConversation(userId);
+      }
+    } else {
+      await setDoc(userDocRef, { conversations: [] });
+      createFirstConversation(userId);
+    }
+  }, [db, createFirstConversation, createNewConversation]);
+
+  useEffect(() => {
+    if (!getApps().length) {
+      initializeApp(firebaseConfig);
+    }
+
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        await fetchConversations(user.uid);
+        setLoading(false);
+      } else {
+        router.push('/landingpage');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router, fetchConversations]);
 
   const deleteConversation = async (conversationId) => {
     const updatedConversations = conversations.filter(conv => conv.id !== conversationId);
@@ -135,6 +136,29 @@ export default function Home() {
       return 'Conversation'; // Fallback if extraction fails
     }
   };
+
+  const fetchOddsData = async (prompt) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/fetch-odds', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      const data = await response.text(); // Since Flask returns plain text
+      return data;
+    } catch (error) {
+      console.error('Error fetching odds data:', error);
+      return null;
+    }
+  };
+
+  const isSportsQuery = (message) => {
+    const sportsKeywords = ['football', 'soccer', 'basketball', 'tennis', 'cricket', 'odds', 'score', 'betting', 'match', 'game']; // Add more sports-related keywords as needed
+    return sportsKeywords.some(keyword => message.toLowerCase().includes(keyword));
+  };
   
   const sendMessage = async () => {
     let sanitizedMessage = message.replace(/[{}]/g, '');
@@ -159,14 +183,23 @@ export default function Home() {
     setConversations(updatedConversations);
   
     try {
+      let llamaPrompt = sanitizedMessage;
+  
+      // If the query is sports-related, fetch odds data
+      if (isSportsQuery(sanitizedMessage)) {
+        const oddsData = await fetchOddsData(sanitizedMessage);
+        llamaPrompt = oddsData
+          ? `${sanitizedMessage}. Here's some relevant information: ${oddsData}`
+          : sanitizedMessage;
+      }
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
-          "Authorization": "Bearer" + process.env.OPENROUTER_API_KEY,
+          "Authorization": "Bearer " + process.env.NEXT_PUBLIC_OPENROUTER_API_KEY,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({
-          messages: updatedMessages,
+          messages: [...updatedMessages, { role: "system", content: llamaPrompt }],
         }),
       });
   

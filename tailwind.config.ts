@@ -76,6 +76,18 @@ module.exports = {
           height: "0",
         },
       },
+      "spin-reverse": {
+        "0%": { transform: "rotate(360deg)" },
+        "100%": { transform: "rotate(0deg)" },
+      },
+      bounce: {
+        "0%, 100%": { transform: "translateY(0)" },
+        "50%": { transform: "translateY(-25%)" },
+      },
+    },
+    animation: {
+      "spin-reverse": "spin-reverse 5s linear infinite",
+      "slow-bounce": "bounce 2s ease-in-out infinite",
     },
   },
   plugins: [require("tailwindcss-animate")],

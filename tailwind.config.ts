@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         primary: {
+          10: "#A39E9E",
           20: "#141525",
           50: "#D9D9D9",
           100: "#1F202D",
@@ -56,11 +57,11 @@ module.exports = {
       //   foreground: "hsl(var(--card-foreground))",
       // },
     },
-    borderRadius: {
-      lg: "var(--radius)",
-      md: "calc(var(--radius) - 2px)",
-      sm: "calc(var(--radius) - 4px)",
-    },
+    // borderRadius: {
+    //   lg: "var(--radius)",
+    //   md: "calc(var(--radius) - 2px)",
+    //   sm: "calc(var(--radius) - 4px)",
+    // },
     keyframes: {
       "accordion-down": {
         from: {

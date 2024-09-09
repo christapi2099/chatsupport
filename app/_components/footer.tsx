@@ -1,0 +1,38 @@
+import Image from "next/image";
+import React from "react";
+import logo from "@/public/logo.png";
+import { Urbanist } from "next/font/google";
+
+const urbanist = Urbanist({ subsets: ["latin"] });
+
+export default function Footer() {
+  return (
+    <div
+      className={`max-w-7xl items-center my-4 ${urbanist.className} flex-row mb-20 justify-center flex`}
+    >
+      <div className="w-8/12">
+        <Image
+          src={logo}
+          alt="playpicks logo"
+          quality={100}
+          width={150}
+          height={150}
+          className="mb-3"
+        />
+        <div className="w-8/12">
+          Elevate your betting experience with cutting-edge AI technology,
+          personalized insights, and a seamless user interface to make every
+          wager more informed and enjoyable.
+        </div>
+      </div>
+
+      <div>
+        <ul className="flex flex-row gap-3 underline">
+          <li>Terms</li>
+          <li>Privacy</li>
+          <li>Contact Us</li>
+        </ul>
+      </div>
+    </div>
+  );
+}

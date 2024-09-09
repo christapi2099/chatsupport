@@ -8,7 +8,7 @@ const urbanist = Urbanist({ subsets: ["latin"] });
 
 export default function Hero() {
   return (
-    <div className="max-w-7xl flex flex-row justify-center gap-6 my-40 mx-10 items-center">
+    <div className="max-w-7xl flex flex-row justify-center gap-6 my-48 mx-10 items-center">
       <Image
         src={heroillustration}
         alt="playpicks illustration"

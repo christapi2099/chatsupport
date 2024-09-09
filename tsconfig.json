@@ -3,7 +3,11 @@
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "noImplicitAny": true, // Warns when 'any' type is implicitly assumed
+    "noImplicitReturns": true, // Ensure all code paths return a value
+    "strictNullChecks": true, // Ensure null and undefined are handled explicitly
+    "strictFunctionTypes": true,
+    "strict": true,
     "noEmit": true,
     "incremental": true,
     "module": "esnext",

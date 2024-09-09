@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       colors: {
         primary: {
+          20: "#141525",
           50: "#D9D9D9",
           100: "#1F202D",
           200: "#AE4310",
@@ -18,6 +19,7 @@ module.exports = {
           600: "#EDDFE0",
           700: "#ACB7F3",
           800: "#C3FFEA",
+          900: "#32302F",
         },
       },
       // border: "hsl(var(--border))",

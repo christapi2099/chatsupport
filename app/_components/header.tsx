@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { Urbanist } from "next/font/google";
+import Button from "./ui-elements/button";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -86,12 +87,21 @@ function NavLinks() {
 function NavButton() {
   return (
     <div className="gap-4 xl:flex hidden font-medium ">
-      <button className="rounded-[0.6rem] hover:bg-primary-900 py-3 px-8 tabletMedium:text-[0.8rem] bg-primary-400">
-        Signup
-      </button>
-      <button className="rounded-[0.6rem] bg-primary-100 tabletMedium:text-[0.8rem] py-3 px-8">
-        Login
-      </button>
+      <Link href="signup">
+        <Button
+          text="Signup"
+          type="button"
+          style="bg-primary-400 hover:bg-primary-450 py-3 px-8"
+        />
+      </Link>
+
+      <Link href="login">
+        <Button
+          text="Login"
+          type="button"
+          style="bg-primary-100 hover:bg-primary-900 py-3 px-8"
+        />
+      </Link>
     </div>
   );
 }

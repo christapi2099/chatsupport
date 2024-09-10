@@ -1,23 +1,101 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Urbanist } from "next/font/google";
 import Input from "../_components/ui-elements/input";
 import Button from "../_components/ui-elements/button";
 import Link from "next/link";
 import GoogleIcon from "../_components/ui-elements/googleIcon";
+import { auth, provider } from "../../firebaseConfig";
+import { useRouter } from "next/navigation";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signInWithPopup,
+  setPersistence,
+  browserLocalPersistence,
+  onAuthStateChanged,
+} from "firebase/auth";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
 export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSignUp, setIsSignUp] = useState(false);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push("/home"); // Redirect to home if already logged in
+      }
+    });
+
+    return () => unsubscribe(); // Cleanup subscription on unmount
+  }, [router]);
+
+  const handleAuth = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    try {
+      await setPersistence(auth, browserLocalPersistence); // Set persistence to local storage
+
+      let userCredential;
+      if (isSignUp) {
+        // Create a new account
+        userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+      } else {
+        // Sign in with existing account
+        userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+      }
+      router.push("/home");
+    } catch (error) {
+      console.error("Authentication error:", error);
+      // alert(error.message); // Show error message to user
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await setPersistence(auth, browserLocalPersistence); // Set persistence to local storage
+
+      const userCredential = await signInWithPopup(auth, provider);
+      router.push("/home");
+    } catch (error) {
+      console.error("Google Sign-In error:", error);
+      // alert(error.message); // Show error message to user
+    }
+  };
+
   return (
     <div className="flex flex-col h-screen justify-center items-center">
       <form
-        className={`${urbanist.className} border border-primary-5 p-8 w-4/12 flex flex-col rounded-[0.6rem]`}
+        onSubmit={handleAuth}
+        className={`${urbanist.className} border border-primary-5 tabletLandscape:w-5/12 phone:w-8/12 midPhone:w-10/12 midPhone:mt-6 mt-16 p-8 w-4/12 tabletMedium:w-6/12 flex flex-col rounded-[0.6rem]`}
       >
         <div className="text-xl mb-6 font-normal self-center">Login</div>
 
         <div className="gap-4 flex flex-col mb-2">
-          <Input placeholder="Email" />
-          <Input placeholder="Password" />
+          <Input
+            placeholder="Email"
+            type="text"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <Input
+            placeholder="Password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className="text-sm self-center font-light underline mb-6 hover:font-medium cursor-pointer">
           Forgot password?
@@ -25,7 +103,7 @@ export default function Login() {
 
         <div className="self-center gap-1 flex flex-col mb-8">
           <Button
-            type={undefined}
+            type="submit"
             style="bg-primary-400 hover:bg-primary-450 py-2 px-20"
             text="Login"
           />
@@ -41,7 +119,10 @@ export default function Login() {
         <div className="self-center items-center gap-8 flex flex-col">
           <div>OR</div>
 
-          <button className="bg-primary-50 text-black rounded-[0.4rem] gap-2 inline-flex font-medium items-center py-1 px-8">
+          <button
+            onClick={handleGoogleSignIn}
+            className="bg-primary-50 text-black smallPhone:text-sm rounded-[0.4rem] gap-2 inline-flex font-medium items-center py-1 px-8"
+          >
             Continue with Google <GoogleIcon />
           </button>
         </div>

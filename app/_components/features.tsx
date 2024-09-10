@@ -1,9 +1,11 @@
+"use client";
 import React from "react";
 import aipowered from "@/public/aipowered.png";
 import personalizedAdvice from "@/public/personalizedAdvice.png";
 import stopwatch from "@/public/stopwatch.png";
 import Image, { StaticImageData } from "next/image";
 import { Urbanist } from "next/font/google";
+import Reveal from "./reveal";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -46,19 +48,21 @@ export default function Features() {
         Key Features
       </div>
 
-      <div className="flex flex-col gap-6">
-        {features.map((feature, index) => (
-          <Feature
-            colour={feature.colour}
-            header={feature.header}
-            alt={feature.alt}
-            details={feature.details}
-            key={index}
-            order={feature.order}
-            image={feature.image}
-          />
-        ))}
-      </div>
+      <Reveal>
+        <div className="flex flex-col gap-6">
+          {features.map((feature, index) => (
+            <Feature
+              colour={feature.colour}
+              header={feature.header}
+              alt={feature.alt}
+              details={feature.details}
+              key={index}
+              order={feature.order}
+              image={feature.image}
+            />
+          ))}
+        </div>
+      </Reveal>
     </div>
   );
 }

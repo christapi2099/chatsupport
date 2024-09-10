@@ -22,11 +22,13 @@
     "dotenv": "^16.4.5",
     "expo-constants": "^16.0.2",
     "firebase": "^10.13.0",
+    "framer-motion": "^11.5.4",
     "lucide-react": "^0.436.0",
     "next": "14.2.5",
     "openai": "^4.55.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-intersection-observer": "^9.13.1",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },

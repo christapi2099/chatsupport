@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Image, { StaticImageData } from "next/image";
 import quote from "@/public/quote.png";
@@ -5,6 +6,7 @@ import john from "@/public/john.png";
 import alice from "@/public/alice.png";
 import robert from "@/public/robert.png";
 import { Urbanist } from "next/font/google";
+import Reveal from "./reveal";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -38,16 +40,18 @@ export default function Reviews() {
         Reviews
       </div>
 
-      <div className="flex flex-row gap-6 phone:flex-col phone:items-center justify-center">
-        {reviews.map((review, index) => (
-          <Review
-            review={review.review}
-            name={review.name}
-            image={review.image}
-            key={index}
-          />
-        ))}
-      </div>
+      <Reveal>
+        <div className="flex flex-row gap-6 phone:flex-col phone:items-center justify-center">
+          {reviews.map((review, index) => (
+            <Review
+              review={review.review}
+              name={review.name}
+              image={review.image}
+              key={index}
+            />
+          ))}
+        </div>
+      </Reveal>
     </div>
   );
 }

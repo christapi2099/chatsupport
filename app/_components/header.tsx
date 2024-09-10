@@ -20,16 +20,16 @@ export default function Header() {
         <NavLinks />
         <NavButton />
         <Bars3Icon
-          className="xl:hidden block cursor-pointer w-12"
+          className="xl:hidden block cursor-pointer tabletLandscape:w-10 smallPhone:w-8 w-12"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         />
         <div
-          className={`absolute xl:hidden top-20 w-full left-0 capitalize bg-primary-100 flex flex-col items-center gap-3 text-sm font-light transform transition-transform ${
+          className={`absolute xl:hidden top-20 midPhone:top-14 w-full left-0 capitalize bg-primary-500 flex flex-col items-center gap-3 midPhone:gap-1 text-sm font-light transform transition-transform ${
             isMenuOpen ? "opacity-100" : "opacity-0"
           }`}
           style={{ transition: "transform 0.3 ease, opacity 0.3 ease" }}
         >
-          <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
+          {/* <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
             Features
           </li>
           <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
@@ -37,11 +37,11 @@ export default function Header() {
           </li>
           <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
             About
-          </li>
-          <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
+          </li> */}
+          <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
             login
           </li>
-          <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
+          <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
             Signup
           </li>
         </div>
@@ -53,7 +53,14 @@ export default function Header() {
 function Logo() {
   return (
     <Link href="/" className="flex items-center">
-      <Image src={logo} quality={100} height={150} width={150} alt="logo" />
+      <Image
+        src={logo}
+        quality={100}
+        height={150}
+        width={150}
+        alt="logo"
+        className="tabletLandscape:w-[7rem] smallPhone:w-[5rem]"
+      />
     </Link>
   );
 }

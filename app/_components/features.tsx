@@ -41,15 +41,15 @@ const features = [
 
 export default function Features() {
   return (
-    <div className="flex flex-col justify-center w-6/12 my-20 items-center">
+    <div className="flex flex-col justify-center w-6/12 phone:w-10/12 tabletPortrait:w-9/12 desktop:w-8/12 my-20 items-center">
       <div
-        className={`bg-primary-400 text-white w-max text-xl px-6 py-3 mb-6 rounded-[0.6rem] font-medium  ${urbanist.className}`}
+        className={`bg-primary-400 smallestPhone:py-2 smallestPhone:text-[0.7rem] midPhone:mb-4 tabletMedium:py-2 midPhone:text-sm tabletMedium:text-base text-white w-max text-xl px-6 py-3 mb-6 rounded-[0.6rem] font-medium  ${urbanist.className}`}
       >
         Key Features
       </div>
 
       <Reveal>
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col midPhone:gap-2 gap-6">
           {features.map((feature, index) => (
             <Feature
               colour={feature.colour}
@@ -84,21 +84,30 @@ function Feature({
 }) {
   return (
     <div
-      className={`flex flex-row ${colour} py-4 px-8 items-center gap-10 text-black rounded-[0.6rem] w-full`}
+      className={`flex flex-row ${colour} py-4 px-8 midPhone:px-4 items-center gap-10 phone:gap-2 text-black smallestPhone:py-2 rounded-[0.6rem] w-full`}
     >
       <div
         className={`flex flex-col ${
           order === "order-1" ? "order-1" : "order-2"
         }`}
       >
-        <div className="font-bold tracking-tighter text-primary-900 text-2xl capitalize">
+        <div className="font-bold tracking-tighter phone:text-base tabletMedium:text-xl text-primary-900 smallestPhone:text-sm text-2xl capitalize">
           {header}
         </div>
-        <div className="text-base font-extralight">{details}</div>
+        <div className="text-base phone:text-xs smallestPhone:text-[0.5rem] midPhone:text-[0.6rem] tabletMedium:text-sm smallestPhone:leading-3 font-extralight">
+          {details}
+        </div>
       </div>
 
       <div className={`${order === "order-1" ? "order-2" : "order-1"}`}>
-        <Image src={image} width={600} height={600} alt={alt} quality={100} />
+        <Image
+          src={image}
+          width={600}
+          height={600}
+          alt={alt}
+          quality={100}
+          className="w-[30rem] midPhone:w-[25rem] smallestPhone:w=[20rem]"
+        />
       </div>
     </div>
   );

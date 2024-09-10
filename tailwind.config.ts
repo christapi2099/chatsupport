@@ -23,6 +23,40 @@ module.exports = {
           900: "#32302F",
         },
       },
+      screens: {
+        largerDesktop: { max: "1535px" },
+        // => @media (max-width: 1535px) { ... }
+
+        mediumDesktop: { max: "1441px" },
+        // => @media (max-width: 1441px) { ... }
+
+        desktop: { max: "1279px" },
+        // => @media (max-width: 1279px) { ... }
+
+        tabletLandscape: { max: "1156px" },
+        // => @media (max-width: 1023px) { ... }
+
+        tabletCustom: { max: "1080px" },
+        // => @media (max-width: 1000px) { ... }
+
+        tabletMedium: { max: "930px" },
+        // => @media (max-width: 900px) { ... }
+
+        tabletPortrait: { max: "880px" },
+        // => @media (max-width: 767px) { ... }
+
+        phone: { max: "700px" },
+        // => @media (max-width: 639px) { ... }
+
+        midPhone: { max: "498px" },
+        // => @media (max-width: 450px) { ... }
+
+        smallPhone: { max: "446px" },
+        //=> @media (max-width: 380px) { ... }
+
+        smallestPhone: { max: "392px" },
+        //=> @media (max-width: 320px) { ... }
+      },
       // border: "hsl(var(--border))",
       // input: "hsl(var(--input))",
       // ring: "hsl(var(--ring))",

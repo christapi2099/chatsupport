@@ -33,7 +33,10 @@ const reviews = [
 
 export default function Reviews() {
   return (
-    <div className="max-w-7xl my-32 midPhone:my-6 tabletPortrait:my-12 smallestPhone:mx-4 tabletCustom:mx-10 items-center justify-center flex flex-col">
+    <div
+      id="reviews"
+      className="max-w-7xl my-32 midPhone:my-6 tabletPortrait:my-12 smallestPhone:mx-4 tabletCustom:mx-10 items-center justify-center flex flex-col"
+    >
       <div
         className={`bg-primary-400 smallestPhone:py-2 smallestPhone:text-[0.7rem] midPhone:mb-4 tabletMedium:py-2 midPhone:text-sm tabletMedium:text-base text-white w-max text-xl px-6 py-3 mb-6 rounded-[0.6rem] font-medium  ${urbanist.className}`}
       >

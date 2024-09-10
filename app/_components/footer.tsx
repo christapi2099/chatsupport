@@ -11,6 +11,7 @@ export default function Footer() {
   return (
     <Reveal>
       <div
+        id="about"
         className={`max-w-7xl items-center tabletPortrait:mx-8 my-4 ${urbanist.className} midPhone:flex-col flex-row mb-20 justify-center flex`}
       >
         <div className="w-8/12 midPhone:w-full midPhone:mb-8">

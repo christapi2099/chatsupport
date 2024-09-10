@@ -26,7 +26,7 @@ function Reveal({ children }: { children: ReactNode }) {
         }}
         initial="hidden"
         animate={controls}
-        transition={{ duration: 0.8, delay: 0.3 }}
+        transition={{ duration: 0.8, delay: 0.2 }}
       >
         {children}
       </motion.div>

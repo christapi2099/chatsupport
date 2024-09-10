@@ -69,9 +69,15 @@ function NavLinks() {
   return (
     <div>
       <ul className="gap-5 text-base font-light hidden xl:inline-flex tabletMedium:text-[0.8rem]">
-        <li className="cursor-pointer">Features</li>
-        <li className="cursor-pointer">Reviews</li>
-        <li className="cursor-pointer">About</li>
+        <li className="cursor-pointer">
+          <a href="#features">Features</a>
+        </li>
+        <li className="cursor-pointer">
+          <a href="#reviews">Reviews</a>
+        </li>
+        <li className="cursor-pointer">
+          <a href="#about">About</a>
+        </li>
       </ul>
     </div>
   );

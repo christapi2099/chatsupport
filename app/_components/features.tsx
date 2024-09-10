@@ -41,7 +41,10 @@ const features = [
 
 export default function Features() {
   return (
-    <div className="flex flex-col justify-center w-6/12 phone:w-10/12 tabletPortrait:w-9/12 desktop:w-8/12 my-20 items-center">
+    <div
+      id="features"
+      className="flex flex-col justify-center w-6/12 phone:w-10/12 tabletPortrait:w-9/12 desktop:w-8/12 my-20 items-center"
+    >
       <div
         className={`bg-primary-400 smallestPhone:py-2 smallestPhone:text-[0.7rem] midPhone:mb-4 tabletMedium:py-2 midPhone:text-sm tabletMedium:text-base text-white w-max text-xl px-6 py-3 mb-6 rounded-[0.6rem] font-medium  ${urbanist.className}`}
       >

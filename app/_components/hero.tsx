@@ -5,6 +5,7 @@ import heroillustration from "@/public/heroillustration.png";
 import basketball from "@/public/basketball.png";
 import { Urbanist } from "next/font/google";
 import Reveal from "./reveal";
+import Link from "next/link";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -44,11 +45,13 @@ export default function Hero() {
               Get AI-powered insights, real-time odds, and personalised betting
               advice.
             </div>
-            <button
-              className={` ${urbanist.className} tracking-tight font-medium tabletMedium:text-sm bg-gradient-to-br midPhone:text-xs from-primary-200 phone:text-sm to-primary-300 tabletPortrait:text-xs text-xl py-2 px-6 rounded-[0.6rem]`}
-            >
-              Get started
-            </button>
+            <Link href="login">
+              <button
+                className={` ${urbanist.className} tracking-tight font-medium tabletMedium:text-sm bg-gradient-to-br midPhone:text-xs from-primary-200 phone:text-sm to-primary-300 tabletPortrait:text-xs text-xl py-2 px-6 rounded-[0.6rem]`}
+              >
+                Get started
+              </button>
+            </Link>
           </div>
         </div>
       </Reveal>

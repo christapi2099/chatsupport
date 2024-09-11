@@ -8,7 +8,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <>
-      <div className="flex flex-row h-screen justify-center items-center my-10">
+      <div className="flex flex-row h-[90dvh] justify-center items-center mb-10 mt-24">
         <History />
         <div className="w-6/12">{children}</div>
       </div>

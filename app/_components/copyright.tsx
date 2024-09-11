@@ -1,6 +1,6 @@
 import React from "react";
 import { Urbanist } from "next/font/google";
-import CopyrightIcon from "@/app/_components/ui-elements/copyrightIcon";
+import CopyrightIcon from "@/app/_components/ui-elements/copyright-icon";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
@@ -12,7 +12,7 @@ export default function Copyright() {
         <div
           className={`${urbanist.className} phone:text-xs midPhone:text-[0.6rem] text-sm font-light`}
         >
-          All rights reserved PlayPicks inc.
+          2024, All rights reserved PlayPicks.
         </div>
       </div>
     </div>

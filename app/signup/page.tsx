@@ -1,6 +1,6 @@
 import React from "react";
 import { Urbanist } from "next/font/google";
-import GoogleIcon from "../_components/ui-elements/googleIcon";
+import GoogleIcon from "../_components/ui-elements/google-icon";
 import Button from "../_components/ui-elements/button";
 import Link from "next/link";
 import Input from "../_components/ui-elements/input";

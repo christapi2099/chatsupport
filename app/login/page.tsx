@@ -4,7 +4,7 @@ import { Urbanist } from "next/font/google";
 import Input from "../_components/ui-elements/input";
 import Button from "../_components/ui-elements/button";
 import Link from "next/link";
-import GoogleIcon from "../_components/ui-elements/googleIcon";
+import GoogleIcon from "../_components/ui-elements/google-icon";
 import { auth, provider } from "../../firebaseConfig";
 import { useRouter } from "next/navigation";
 import {

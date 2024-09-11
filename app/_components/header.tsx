@@ -71,13 +71,13 @@ function NavLinks() {
     <div>
       <ul className="gap-5 text-base font-light hidden xl:inline-flex tabletMedium:text-[0.8rem]">
         <li className="cursor-pointer">
-          <a href="#features">Features</a>
+          <Link href="/#features">Features</Link>
         </li>
         <li className="cursor-pointer">
-          <a href="#reviews">Reviews</a>
+          <Link href="/#reviews">Reviews</Link>
         </li>
         <li className="cursor-pointer">
-          <a href="#about">About</a>
+          <Link href="chat">Chat</Link>
         </li>
       </ul>
     </div>

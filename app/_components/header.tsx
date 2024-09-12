@@ -39,11 +39,14 @@ export default function Header() {
           <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
             About
           </li> */}
-          <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
-            login
+          <li className="cursor-pointer hidden tabletPortrait:block w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
+            <Link href="history">History</Link>
           </li>
           <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
-            Signup
+            <Link href="login">login</Link>
+          </li>
+          <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
+            <Link href="signup">Signup</Link>
           </li>
         </div>
       </div>

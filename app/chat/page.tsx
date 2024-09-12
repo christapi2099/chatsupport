@@ -18,15 +18,15 @@ const messages = [
 
 export default function Chat() {
   return (
-    <div className="mx-6 h-[80dvh] justify-center flex flex-col items-center w-full">
-      <div className="flex flex-col overflow-y-auto w-9/12 p-2">
+    <div className="mx-6 h-[80dvh] tabletPortrait:mx-0 justify-center flex flex-col items-center w-full">
+      <div className="flex flex-col overflow-y-auto midPhone:w-full w-9/12 p-2">
         {messages.map((message, index) => (
           <ChatBubble text={message.text} role={message.role} key={index} />
         ))}
       </div>
 
       <div
-        className={`${urbanist.className} mt-auto pb-4 px-4 w-9/12 pt-2 border border-primary-5 rounded-[0.5rem]`}
+        className={`${urbanist.className} midPhone:w-11/12 mt-auto pb-4 px-4 w-9/12 pt-2 border border-primary-5 rounded-[0.5rem]`}
       >
         <Prompt />
       </div>

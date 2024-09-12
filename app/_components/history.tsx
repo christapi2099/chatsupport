@@ -28,7 +28,7 @@ export default function History() {
 
   return (
     <div
-      className={`${urbanist.className} flex flex-col h-[80dvh] w-3/12 px-4 items-center border-[0.5px] border-primary-5 rounded-[0.6rem]`}
+      className={`${urbanist.className} flex tabletPortrait:hidden flex-col h-[80dvh] w-3/12 px-4 items-center border-[0.5px] border-primary-5 rounded-[0.6rem]`}
     >
       <div className="text-xl mt-4 mb-6">History</div>
 
@@ -64,7 +64,7 @@ export default function History() {
             : ""
         }`}
       >
-        <span className="truncate">{history}</span>
+        <div className="truncate">{history}</div>
       </div>
     );
   }

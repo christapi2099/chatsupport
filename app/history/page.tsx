@@ -32,7 +32,7 @@ export default function MobileScreenHistory() {
   return (
     <div className="flex flex-col justify-center items-center mx-4 my-28">
       <div
-        className={`${urbanist.className} flex flex-col h-[80dvh] w-full md:w-9/12 px-4 items-center border-[0.5px] border-primary-5 rounded-[0.6rem]`}
+        className={`${urbanist.className} flex flex-col h-[80dvh] lg:w-4/12 w-full md:w-9/12 px-4 items-center border-[0.5px] border-primary-5 rounded-[0.6rem]`}
       >
         <div className="text-xl mt-4 mb-4">History</div>
 

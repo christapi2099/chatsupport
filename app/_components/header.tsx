@@ -5,12 +5,14 @@ import Image from "next/image";
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { Urbanist } from "next/font/google";
+import john from "@/public/john.png";
 import Button from "./ui-elements/button";
 
 const urbanist = Urbanist({ subsets: ["latin"] });
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true); //temporary Login state, CHANGE LATER
 
   return (
     <header className="fixed top-0 left-0 w-full bg-primary-500 z-50">
@@ -19,7 +21,21 @@ export default function Header() {
       >
         <Logo />
         <NavLinks />
-        <NavButton />
+        {isLoggedIn ? (
+          <div className="items-center gap-2 xl:inline-flex hidden">
+            <div
+              onClick={() => setIsLoggedIn(false)}
+              className="cursor-pointer text-xl font-medium"
+            >
+              Logout
+            </div>
+            <Link href="profile" className="bg-primary-50 rounded-full p-1">
+              <Image src={john} alt="john user" width={40} height={40} />
+            </Link>
+          </div>
+        ) : (
+          <NavButton />
+        )}
         <Bars3Icon
           className="xl:hidden block cursor-pointer tabletLandscape:w-10 smallPhone:w-8 w-12"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -30,24 +46,26 @@ export default function Header() {
           }`}
           style={{ transition: "transform 0.3 ease, opacity 0.3 ease" }}
         >
-          {/* <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
-            Features
-          </li>
-          <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
-            Reviews
-          </li>
-          <li className="cursor-pointer w-full list-none text-center p-4 transition-all hover:text-primary-300">
-            About
-          </li> */}
           <li className="cursor-pointer hidden tabletPortrait:block w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
             <Link href="history">History</Link>
           </li>
-          <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
-            <Link href="login">login</Link>
-          </li>
-          <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
-            <Link href="signup">Signup</Link>
-          </li>
+          {isLoggedIn ? (
+            <li
+              onClick={() => setIsLoggedIn(false)}
+              className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300"
+            >
+              Logout
+            </li>
+          ) : (
+            <>
+              <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
+                <Link href="login">login</Link>
+              </li>
+              <li className="cursor-pointer w-full list-none text-center font-medium p-4 midPhone:py-2 transition-all hover:text-primary-300">
+                <Link href="signup">Signup</Link>
+              </li>
+            </>
+          )}
         </div>
       </div>
     </header>
@@ -60,8 +78,8 @@ function Logo() {
       <Image
         src={logo}
         quality={100}
-        height={150}
-        width={150}
+        height={120}
+        width={120}
         alt="logo"
         className="tabletLandscape:w-[7rem] smallPhone:w-[5rem]"
       />

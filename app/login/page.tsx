@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FormEvent } from "react";
 import { Urbanist } from "next/font/google";
 import Input from "../_components/ui-elements/input";
 import Button from "../_components/ui-elements/button";
@@ -16,10 +16,12 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
+
 const urbanist = Urbanist({ subsets: ["latin"] });
 
 export default function Login() {
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSignUp, setIsSignUp] = useState(false);
@@ -27,29 +29,25 @@ export default function Login() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        router.push("/home"); // Redirect to home if already logged in
+        router.push("/home");
       }
     });
-
-    return () => unsubscribe(); // Cleanup subscription on unmount
+    return () => unsubscribe();
   }, [router]);
 
-  const handleAuth = async (e: { preventDefault: () => void }) => {
+  const handleAuth = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     try {
-      await setPersistence(auth, browserLocalPersistence); // Set persistence to local storage
+      await setPersistence(auth, browserLocalPersistence);
 
       let userCredential;
       if (isSignUp) {
-        // Create a new account
         userCredential = await createUserWithEmailAndPassword(
           auth,
           email,
           password
         );
       } else {
-        // Sign in with existing account
         userCredential = await signInWithEmailAndPassword(
           auth,
           email,
@@ -59,19 +57,16 @@ export default function Login() {
       router.push("/home");
     } catch (error) {
       console.error("Authentication error:", error);
-      // alert(error.message); // Show error message to user
     }
   };
 
   const handleGoogleSignIn = async () => {
     try {
-      await setPersistence(auth, browserLocalPersistence); // Set persistence to local storage
-
+      await setPersistence(auth, browserLocalPersistence);
       const userCredential = await signInWithPopup(auth, provider);
       router.push("/home");
     } catch (error) {
       console.error("Google Sign-In error:", error);
-      // alert(error.message); // Show error message to user
     }
   };
 
@@ -120,6 +115,7 @@ export default function Login() {
           <div>OR</div>
 
           <button
+            type="button"
             onClick={handleGoogleSignIn}
             className="bg-primary-50 text-black smallPhone:text-sm rounded-[0.4rem] gap-2 inline-flex font-medium items-center py-1 px-8"
           >
